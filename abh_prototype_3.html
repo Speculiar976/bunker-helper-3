@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ABH Prototype</title>
+    <link rel="stylesheet" href="abh_prototype_3.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: black; color: white; font-family: Arial; height: 100%; margin: 0; padding-bottom: 600px;">
+    <div class="main-header">
+        <p class="title">CREATED BY:</p>
+        <p class="author">Speculiar</p>
+    </div>
+    <div class="master-container">
+        <div class="section-container-combinations">
+            <p class="section-container-combinations-paragraph">COMBINATIONS</p>
+            <p class="enter-digits-here">Enter three single digits.</p>
+            <div class="input-output-container">          
+                <div class="keypad-inputs">
+                    <input type="number" id="firstNumber" placeholder="1st Number">
+                    <input type="number" id="secondNumber" placeholder="2nd Number">
+                    <input type="number" id="thirdNumber" placeholder="3rd Number">
+                    <div class="generate-button-container">
+                        <button id="generateButton" class="generate-button">GENERATE</button>
+                    </div>
+                </div>
+                <div id="combinationOutputs" class="combination-outputs">
+                    <p>OUTPUTS</p>
+                    <div id="outputContainer"></div> 
+                </div>
+            </div>
+            <div class="combinations-image-container">
+                <img src="abh_lvl_1.png" alt="Combinations Image" style="width:100%;">
+            </div>
+        </div>
+        <div class="section-container-loot-timer">
+            <p style="font-size: 30px; margin-top: 10px;">LOOT TIMER</p>
+            <div class="loot-timer-container">
+                <div class="loot-timer" id="lootTimer">00:00</div>
+            </div>
+            <div class="start-pause-reset-container">
+                <button class="loot-timer-start-button" id="startButton">START</button>
+                <button class="loot-timer-pause-button" id="pauseButton">PAUSE</button>
+                <button class="loot-timer-reset-button" id="resetButton">RESET</button>
+            </div>
+            <div class="timer-modifiers-container">
+                <button class="minus-ten-minutes-button" id="minusTenMinutesButton">− 10min</button>
+                <button class="minus-five-minutes-button" id="minusFiveMinutesButton">− 5min</button>
+                <button class="plus-five-minutes-button" id="plusFiveMinutesButton">+ 5min</button>
+                <button class="plus-ten-minutes-button" id="plusTenMinutesButton">+ 10min</button>
+            </div>
+            <div class="loot-timer-image-container">
+                <img src="abh_lvl_2.png" alt="Loot Timer Image" style="width:100%;">
+            </div>
+        </div>
+        <div class="section-container-fuse-calculator">
+            <p style="font-size: 30px; margin-top: 10px;">FUSE CALCULATOR</p>
+            <div class="fuse-calculator-container" style="border: 2px solid green;">
+                <p style="text-align: center;">LEVEL 1</p>
+                <div class="user-input-container">
+                    <div class="amperage-selector-container">
+                        <select class="amp-selections" id="ampSelections">
+                            <option value="0.04">200A</option>
+                            <option value="0.08">400A</option>
+                            <option value="0.12">600A</option>
+                            <option value="0.16">800A</option>
+                            <option value="0.20">1kA</option>
+                        </select>
+                    </div>
+                    <div class="fuse-durability-container">
+                        <input class="fuse-durability" type="number" id="fuseDurability" placeholder="Durability">
+                    </div>
+                    <div class="calculate-button-container">
+                        <button class="fuse-calculate" id="calculateButton">CALCULATE</button>
+                    </div>
+                </div>
+                <div class="calculator-results-container">
+                    <div class="calculator-results" id="calculatorResults">00:00</div>
+                </div>
+                <div class="calculator-results-action-container">
+                    <button class="fuse-timer-start" id="fuseTimerStart">START</button>
+                    <button class="fuse-timer-pause" id="fuseTimerPause">PAUSE</button>
+                    <button class="fuse-timer-reset" id="fuseTimerReset">RESET</button>
+                </div>
+            </div>
+            <div class="fuse-calculator-container" style="border: 2px solid green; margin-top: 20px;">
+                <p style="text-align: center;">LEVEL 2</p>
+                <div class="user-input-container">
+                    <div class="amperage-selector-container">
+                        <select class="amp-selections" id="ampSelections2">
+                            <option value="0.04">200A</option>
+                            <option value="0.08">400A</option>
+                            <option value="0.12">600A</option>
+                            <option value="0.16">800A</option>
+                            <option value="0.20">1kA</option>
+                        </select>
+                    </div>
+                    <div class="fuse-durability-container">
+                        <input class="fuse-durability" type="number" id="fuseDurability2" placeholder="Durability">
+                    </div>
+                    <div class="calculate-button-container">
+                        <button class="fuse-calculate" id="calculateButton2">CALCULATE</button>
+                    </div>
+                </div>
+                <div class="calculator-results-container">
+                    <div class="calculator-results" id="calculatorResults2">00:00</div>
+                </div>
+                <div class="calculator-results-action-container">
+                    <button class="fuse-timer-start" id="fuseTimerStart2">START</button>
+                    <button class="fuse-timer-pause" id="fuseTimerPause2">PAUSE</button>
+                    <button class="fuse-timer-reset" id="fuseTimerReset2">RESET</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Validate number inputs
+        function validateNumberInput(input) {
+            if (input.value > 9) {
+                alert('Numbers need to be from 0-9');
+                input.value = '';
+            }
+        }
+
+        document.getElementById('firstNumber').addEventListener('input', function() {
+            validateNumberInput(this);
+        });
+        document.getElementById('secondNumber').addEventListener('input', function() {
+            validateNumberInput(this);
+        });
+        document.getElementById('thirdNumber').addEventListener('input', function() {
+            validateNumberInput(this);
+        });
+
+        document.getElementById('generateButton').addEventListener('click', function() {
+            var firstNumber = parseInt(document.getElementById('firstNumber').value);
+            var secondNumber = parseInt(document.getElementById('secondNumber').value);
+            var thirdNumber = parseInt(document.getElementById('thirdNumber').value);
+
+            var numbers = [firstNumber, secondNumber, thirdNumber];
+            var combinations = [];
+
+            for (var i = 0; i < numbers.length; i++) {
+                for (var j = 0; j < numbers.length; j++) {
+                    for (var k = 0; k < numbers.length; k++) {
+                        if (i !== j && j !== k && i !== k) {
+                            combinations.push(`${numbers[i]}${numbers[j]}${numbers[k]}`);
+                        }
+                    }
+                }
+            }
+
+            var outputDiv = document.getElementById('combinationOutputs');
+            outputDiv.innerHTML = '<p>OUTPUTS</p>';
+            outputDiv.innerHTML += '<p>' + combinations.join('</p><p>') + '</p>';
+        });
+
+        function updateFuseTimerDisplay(fuseTime, fuseTimerElement) {
+            var minutes = Math.floor(fuseTime / 60);
+            var seconds = fuseTime % 60;
+            fuseTimerElement.textContent = (minutes < 10 ? "0" : "") + minutes + ':' + (seconds < 10 ? "0" : "") + seconds;
+        }
+
+        function calculateFuseTime(ampSelectionsId, fuseDurabilityId, resultsId) {
+            var ampValue = parseFloat(document.getElementById(ampSelectionsId).value);
+            var durability = parseFloat(document.getElementById(fuseDurabilityId).value);
+            if (durability > 100) {
+                alert('Durability cannot exceed 100%');
+                return null; 
+            }
+            var fuseTime = Math.floor(ampValue * durability * 60); 
+            updateFuseTimerDisplay(fuseTime, document.getElementById(resultsId));
+            return fuseTime; 
+        }
+
+        var fuseTimers = {
+            "level1": { timer: null, time: 0, isRunning: false, isPaused: false, fiveMinAlertPlayed: false, oneMinAlertPlayed: false, elements: { startPause: 'fuseTimerStart', pause: 'fuseTimerPause', reset: 'fuseTimerReset', display: 'calculatorResults', calculate: 'calculateButton', ampSelections: 'ampSelections', fuseDurability: 'fuseDurability' } },
+            "level2": { timer: null, time: 0, isRunning: false, isPaused: false, fiveMinAlertPlayed: false, oneMinAlertPlayed: false, elements: { startPause: 'fuseTimerStart2', pause: 'fuseTimerPause2', reset: 'fuseTimerReset2', display: 'calculatorResults2', calculate: 'calculateButton2', ampSelections: 'ampSelections2', fuseDurability: 'fuseDurability2' } }
+        };
+
+        var alerts = {
+            "level1": { "5min": new Audio('L1_FT_5.mp3'), "1min": new Audio('L1_FT_1.mp3'), "finished": new Audio('L1_FT_Finished.mp3') },
+            "level2": { "5min": new Audio('L2_FT_5.mp3'), "1min": new Audio('L2_FT_1.mp3'), "finished": new Audio('L2_FT_Finished.mp3') },
+            "loot": { "5min": new Audio('LT_5.mp3'), "1min": new Audio('LT_1.mp3'), "finished": new Audio('LT_Finished.mp3') }
+        };
+
+        function setupFuseTimer(level) {
+            var elements = fuseTimers[level].elements;
+
+            document.getElementById(elements.calculate).addEventListener('click', function() {
+                var time = calculateFuseTime(elements.ampSelections, elements.fuseDurability, elements.display);
+                if (time !== null) { 
+                    fuseTimers[level].time = time;
+                    fuseTimers[level].fiveMinAlertPlayed = false;
+                    fuseTimers[level].oneMinAlertPlayed = false;
+                }
+            });
+
+            document.getElementById(elements.startPause).addEventListener('click', function() {
+                if (!fuseTimers[level].isRunning) {
+                    fuseTimers[level].isRunning = true;
+                    fuseTimers[level].isPaused = false;
+                    fuseTimers[level].timer = setInterval(function() {
+                        if (fuseTimers[level].time > 0) {
+                            fuseTimers[level].time--;
+                            updateFuseTimerDisplay(fuseTimers[level].time, document.getElementById(elements.display));
+                            if (fuseTimers[level].time === 300 && !fuseTimers[level].fiveMinAlertPlayed) {
+                                alerts[level]["5min"].play();
+                                fuseTimers[level].fiveMinAlertPlayed = true;
+                            } else if (fuseTimers[level].time === 60 && !fuseTimers[level].oneMinAlertPlayed) {
+                                alerts[level]["1min"].play();
+                                fuseTimers[level].oneMinAlertPlayed = true;
+                            } else if (fuseTimers[level].time === 0) {
+                                alerts[level]["finished"].play();
+                                clearInterval(fuseTimers[level].timer);
+                                fuseTimers[level].isRunning = false;
+                            }
+                        }
+                    }, 1000);
+                }
+            });
+
+            document.getElementById(elements.pause).addEventListener('click', function() {
+                if (fuseTimers[level].isRunning && !fuseTimers[level].isPaused) {
+                    clearInterval(fuseTimers[level].timer);
+                    fuseTimers[level].isPaused = true;
+                    document.getElementById(elements.pause).textContent = 'RESUME';
+                } else if (fuseTimers[level].isRunning && fuseTimers[level].isPaused) {
+                    fuseTimers[level].isPaused = false;
+                    document.getElementById(elements.pause).textContent = 'PAUSE';
+                    fuseTimers[level].timer = setInterval(function() {
+                        if (fuseTimers[level].time > 0) {
+                            fuseTimers[level].time--;
+                            updateFuseTimerDisplay(fuseTimers[level].time, document.getElementById(elements.display));
+                            if (fuseTimers[level].time === 300 && !fuseTimers[level].fiveMinAlertPlayed) {
+                                alerts[level]["5min"].play();
+                                fuseTimers[level].fiveMinAlertPlayed = true;
+                            } else if (fuseTimers[level].time === 60 && !fuseTimers[level].oneMinAlertPlayed) {
+                                alerts[level]["1min"].play();
+                                fuseTimers[level].oneMinAlertPlayed = true;
+                            } else if (fuseTimers[level].time === 0) {
+                                alerts[level]["finished"].play();
+                                clearInterval(fuseTimers[level].timer);
+                                fuseTimers[level].isRunning = false;
+                            }
+                        }
+                    }, 1000);
+                }
+            });
+
+            document.getElementById(elements.reset).addEventListener('click', function() {
+                clearInterval(fuseTimers[level].timer);
+                fuseTimers[level].time = 0;
+                fuseTimers[level].isRunning = false;
+                fuseTimers[level].isPaused = false;
+                fuseTimers[level].fiveMinAlertPlayed = false;
+                fuseTimers[level].oneMinAlertPlayed = false;
+                updateFuseTimerDisplay(fuseTimers[level].time, document.getElementById(elements.display));
+                document.getElementById(elements.pause).textContent = 'PAUSE';
+            });
+        }
+
+        setupFuseTimer("level1");
+        setupFuseTimer("level2");
+
+        var lootTimer;
+        var lootTime = 20 * 60;
+        var isLootTimerRunning = false;
+        var lootTimerElement = document.getElementById('lootTimer');
+        var ltPlayed1MinAlert = false;
+        var ltPlayed5MinAlert = false;
+
+        function updateLootTimerDisplay() {
+            var minutes = Math.floor(lootTime / 60);
+            var seconds = lootTime % 60;
+            lootTimerElement.textContent = pad(minutes) + ':' + pad(seconds);
+        }
+
+        function pad(number) {
+            return number < 10 ? '0' + number : number;
+        }
+
+        document.getElementById('startButton').addEventListener('click', function() {
+            if (!isLootTimerRunning) {
+                isLootTimerRunning = true;
+                lootTimer = setInterval(function() {
+                    lootTime--;
+                    updateLootTimerDisplay();
+
+                    if (lootTime === 60 && !ltPlayed1MinAlert) {
+                        alerts["loot"]["1min"].play();
+                        ltPlayed1MinAlert = true;
+                    } else if (lootTime === 5 * 60 && !ltPlayed5MinAlert) {
+                        alerts["loot"]["5min"].play();
+                        ltPlayed5MinAlert = true;
+                    } else if (lootTime <= 0) {
+                        alerts["loot"]["finished"].play();
+                        clearInterval(lootTimer);
+                        isLootTimerRunning = false;
+                    }
+                }, 1000);
+            }
+        });
+
+        document.getElementById('pauseButton').addEventListener('click', function() {
+            var pauseButton = document.getElementById('pauseButton');
+            if (isLootTimerRunning) {
+                clearInterval(lootTimer);
+                isLootTimerRunning = false;
+                pauseButton.textContent = 'RESUME';
+            } else {
+                isLootTimerRunning = true;
+                pauseButton.textContent = 'PAUSE';
+                lootTimer = setInterval(function() {
+                    lootTime--;
+                    updateLootTimerDisplay();
+                    if (lootTime === 60 && !ltPlayed1MinAlert) {
+                        alerts["loot"]["1min"].play();
+                        ltPlayed1MinAlert = true;
+                    } else if (lootTime === 5 * 60 && !ltPlayed5MinAlert) {
+                        alerts["loot"]["5min"].play();
+                        ltPlayed5MinAlert = true;
+                    } else if (lootTime <= 0) {
+                        alerts["loot"]["finished"].play();
+                        clearInterval(lootTimer);
+                        isLootTimerRunning = false;
+                    }
+                }, 1000);
+            }
+        });
+
+        document.getElementById('resetButton').addEventListener('click', function() {
+            clearInterval(lootTimer);
+            lootTime = 20 * 60;
+            updateLootTimerDisplay();
+            isLootTimerRunning = false;
+            ltPlayed1MinAlert = false;
+            ltPlayed5MinAlert = false;
+        });
+
+        document.getElementById('minusTenMinutesButton').addEventListener('click', function() {
+            adjustLootTime(-10 * 60);
+        });
+
+        document.getElementById('minusFiveMinutesButton').addEventListener('click', function() {
+            adjustLootTime(-5 * 60);
+        });
+
+        document.getElementById('plusFiveMinutesButton').addEventListener('click', function() {
+            adjustLootTime(5 * 60);
+        });
+
+        document.getElementById('plusTenMinutesButton').addEventListener('click', function() {
+            adjustLootTime(10 * 60);
+        });
+
+        function adjustLootTime(seconds) {
+            lootTime += seconds;
+            if (lootTime < 0) lootTime = 0;
+            updateLootTimerDisplay();
+            if (lootTime > 600 && !ltPlayed5MinAlert) {
+                ltPlayed5MinAlert = false;
+            }
+            if (lootTime > 300 && !ltPlayed1MinAlert) {
+                ltPlayed1MinAlert = false;
+            }
+        }
+    </script>
+</body>
+</html>
